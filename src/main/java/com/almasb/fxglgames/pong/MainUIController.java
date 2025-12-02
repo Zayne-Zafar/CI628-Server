@@ -54,8 +54,8 @@ public class MainUIController implements UIController {
 
     @Override
     public void init() {
-        labelScorePlayer.setFont(FXGL.getUIFactory().newFont(72));
-        labelScoreEnemy.setFont(FXGL.getUIFactory().newFont(72));
+        labelScorePlayer.setFont(FXGL.getUIFactoryService().newFont(72));
+        labelScoreEnemy.setFont(FXGL.getUIFactoryService().newFont(72));
 
         labelScoreEnemy.layoutBoundsProperty().addListener((observable, oldValue, newBounds) -> {
             double width = newBounds.getWidth();
