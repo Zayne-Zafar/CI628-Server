@@ -36,6 +36,7 @@ import static java.lang.Math.signum;
 
 /**
  * @author Almas Baimagambetov (AlmasB) (almaslvl@gmail.com)
+ * @author Zayne(Brook) Zafar (ZayneZ) (16zafara@gmail.com)
  */
 public class BallComponent extends Component {
 

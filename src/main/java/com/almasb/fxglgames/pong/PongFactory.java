@@ -48,6 +48,7 @@ import static com.almasb.fxgl.dsl.FXGL.*;
 
 /**
  * @author Almas Baimagambetov (AlmasB) (almaslvl@gmail.com)
+ * @author Zayne(Brook) Zafar (ZayneZ) (16zafara@gmail.com)
  */
 public class PongFactory implements EntityFactory {
 
@@ -96,7 +97,7 @@ public class PongFactory implements EntityFactory {
 
         return entityBuilder(data)
                 .type(isPlayer ? EntityType.PLAYER_BAT : EntityType.ENEMY_BAT)
-                .viewWithBBox(new Rectangle(20, 60, Color.LIGHTGRAY))
+                .viewWithBBox(new Rectangle(20, 40, Color.LIGHTGRAY))
                 .with(new CollidableComponent(true))
                 .with(physics)
                 .with(new BatComponent())

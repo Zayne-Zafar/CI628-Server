@@ -34,41 +34,25 @@ import com.almasb.fxgl.physics.PhysicsComponent;
  * @author Almas Baimagambetov (AlmasB) (almaslvl@gmail.com)
  * @author Zayne(Brook) Zafar (ZayneZ) (16zafara@gmail.com)
  */
-public class BatComponent extends Component {
+public class SpikeComponent extends Component {
 
-    private static final double BAT_SPEED = 420;
+    private boolean isCollidable;
+    private boolean doesDamage;
+    private boolean displayingUp;
 
-    protected PhysicsComponent physics;
-
-    public void up() {
-        if (entity.getY() >= BAT_SPEED / 60)
-            physics.setVelocityY(-BAT_SPEED);
-        else
-            stop();
+    public void toggleUp(boolean isUp) {
+        if (isUp) {
+            isCollidable = true;
+            doesDamage = true;
+            displayingUp = true;
+        }
+        else {
+            isCollidable = false;
+            doesDamage = false;
+            displayingUp = false;
+        }
     }
 
-    public void down() {
-        if (entity.getBottomY() <= FXGL.getAppHeight() - (BAT_SPEED / 60))
-            physics.setVelocityY(BAT_SPEED);
-        else
-            stop();
-    }
-
-    public void left() {
-        if (entity.getX() >= BAT_SPEED / 60)
-            physics.setVelocityX(-BAT_SPEED);
-        else
-            stop();
-    }
-
-    public void right() {
-        if (entity.getX() <= FXGL.getAppWidth() - (BAT_SPEED / 60))
-            physics.setVelocityX(BAT_SPEED);
-        else
-            stop();
-    }
-
-    public void stop() {
-        physics.setLinearVelocity(0, 0);
-    }
 }
+
+//in the constructor

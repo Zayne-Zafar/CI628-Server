@@ -59,6 +59,7 @@ import static com.almasb.fxglgames.pong.NetworkMessages.*;
  * Sounds from https://freesound.org/people/NoiseCollector/sounds/4391/ under CC BY 3.0.
  *
  * @author Almas Baimagambetov (AlmasB) (almaslvl@gmail.com)
+ * @author Zayne(Brook) Zafar (ZayneZ) (16zafara@gmail.com)
  */
 public class PongApp extends GameApplication implements MessageHandler<String> {
 
@@ -104,6 +105,31 @@ public class PongApp extends GameApplication implements MessageHandler<String> {
             }
         }, KeyCode.S);
 
+        getInput().addAction(new UserAction("Right1") {
+            @Override
+            protected void onAction() {
+                player1Bat.right();
+            }
+
+            @Override
+            protected void onActionEnd() {
+                player1Bat.stop();
+            }
+        }, KeyCode.D);
+
+        getInput().addAction(new UserAction("Left1") {
+            @Override
+            protected void onAction() {
+                player1Bat.left();
+            }
+
+            @Override
+            protected void onActionEnd() {
+                player1Bat.stop();
+            }
+        }, KeyCode.A);
+
+
         getInput().addAction(new UserAction("Up2") {
             @Override
             protected void onAction() {
@@ -114,7 +140,7 @@ public class PongApp extends GameApplication implements MessageHandler<String> {
             protected void onActionEnd() {
                 player2Bat.stop();
             }
-        }, KeyCode.I);
+        },KeyCode.I);
 
         getInput().addAction(new UserAction("Down2") {
             @Override
@@ -127,6 +153,30 @@ public class PongApp extends GameApplication implements MessageHandler<String> {
                 player2Bat.stop();
             }
         }, KeyCode.K);
+
+        getInput().addAction(new UserAction("Right2") {
+            @Override
+            protected void onAction() {
+                player2Bat.right();
+            }
+
+            @Override
+            protected void onActionEnd() {
+                player2Bat.stop();
+            }
+        }, KeyCode.L);
+
+        getInput().addAction(new UserAction("Left2") {
+            @Override
+            protected void onAction() {
+                player2Bat.left();
+            }
+
+            @Override
+            protected void onActionEnd() {
+                player2Bat.stop();
+            }
+        }, KeyCode.J);
     }
 
     @Override
@@ -229,7 +279,8 @@ public class PongApp extends GameApplication implements MessageHandler<String> {
     }
 
     private void initGameObjects() {
-        ball = spawn("ball", getAppWidth() / 2 - 5, getAppHeight() / 2 - 5);
+        //ball = spawn("ball", getAppWidth() / 2 - 5, getAppHeight() / 2 - 5);
+        //ball = spawn("ball", getAppWidth() / 2 - 5, getAppHeight() / 2 - 5);
         player1 = spawn("bat", new SpawnData(getAppWidth() / 4, getAppHeight() / 2 - 30).put("isPlayer", true));
         player2 = spawn("bat", new SpawnData(3 * getAppWidth() / 4 - 20, getAppHeight() / 2 - 30).put("isPlayer", false));
 
