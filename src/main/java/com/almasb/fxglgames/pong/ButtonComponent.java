@@ -34,35 +34,14 @@ import com.almasb.fxgl.physics.PhysicsComponent;
  * @author Almas Baimagambetov (AlmasB) (almaslvl@gmail.com)
  * @author Zayne(Brook) Zafar (ZayneZ) (16zafara@gmail.com)
  */
-public class SpikeComponent extends Component {
+public class ButtonComponent extends Component {
+    private boolean isPressed;
 
-    private boolean isUp = true;
-
-    public boolean getIsUp() {
-        return isUp;
+    public boolean getIsPressed() {
+        return isPressed;
     }
 
-    public void setIsUp(boolean doUp) {
-        isUp = doUp;
+    public void setIsPressed(boolean doPress) {
+        isPressed = doPress;
     }
-
-    /*    private boolean isCollidable;
-    private boolean doesDamage;
-    private boolean displayingUp;
-
-    public void toggleUp(boolean isUp) {
-        if (isUp) {
-            isCollidable = true;
-            doesDamage = true;
-            displayingUp = true;
-        }
-        else {
-            isCollidable = false;
-            doesDamage = false;
-            displayingUp = false;
-        }
-    }*/
-
 }
-
-//in the constructor

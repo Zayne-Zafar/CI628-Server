@@ -103,4 +103,28 @@ public class PongFactory implements EntityFactory {
                 .with(new BatComponent())
                 .build();
     }
+
+    @Spawns("Spike")
+    public Entity newSpike(SpawnData data) {
+
+
+        return entityBuilder(data)
+                .type(EntityType.SPIKE)
+                .viewWithBBox(new Rectangle(20, 20, Color.DARKRED))
+                .with(new CollidableComponent(true))
+                .with(new SpikeComponent())
+                .build();
+    }
+
+    @Spawns("Button")
+    public Entity newButton(SpawnData data) {
+
+
+        return entityBuilder(data)
+                .type(EntityType.BUTTON)
+                .viewWithBBox(new Rectangle(20, 20, Color.DARKBLUE))
+                .with(new CollidableComponent(true))
+                .with(new ButtonComponent())
+                .build();
+    }
 }

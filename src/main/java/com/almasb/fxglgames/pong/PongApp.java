@@ -76,6 +76,10 @@ public class PongApp extends GameApplication implements MessageHandler<String> {
     private Entity ball;
     private BatComponent player1Bat;
     private BatComponent player2Bat;
+    private Entity spike;
+    private Entity button;
+    private SpikeComponent spikeComponent;
+    private ButtonComponent buttonComponent;
 
     private Server<String> server;
 
@@ -211,6 +215,62 @@ public class PongApp extends GameApplication implements MessageHandler<String> {
     protected void initPhysics() {
         getPhysicsWorld().setGravity(0, 0);
 
+        getPhysicsWorld().addCollisionHandler(new CollisionHandler(EntityType.BUTTON, EntityType.PLAYER_BAT) {
+            @Override
+            protected void onCollision(Entity buttonComp, Entity playerBat) {
+                buttonComp.getComponent(ButtonComponent.class).setIsPressed(true);
+                //buttonComp.getComponent(); HOW TO CHANGE COLOUR?
+
+                spikeComponent.setIsUp(false);
+            }
+
+            protected void onCollisionEnd(Entity buttonComp, Entity playerBat) {
+                buttonComp.getComponent(ButtonComponent.class).setIsPressed(false);
+
+                spikeComponent.setIsUp(true);
+            }
+
+        });
+
+        getPhysicsWorld().addCollisionHandler(new CollisionHandler(EntityType.BUTTON, EntityType.ENEMY_BAT) {
+            @Override
+            protected void onCollision(Entity buttonComp, Entity enemyBat) {
+                buttonComp.getComponent(ButtonComponent.class).setIsPressed(true);
+                //buttonComp.getComponent(); HOW TO CHANGE COLOUR?
+
+                spikeComponent.setIsUp(false);
+            }
+
+            protected void onCollisionEnd(Entity buttonComp, Entity enemyBat) {
+                buttonComp.getComponent(ButtonComponent.class).setIsPressed(false);
+
+                spikeComponent.setIsUp(true);
+            }
+
+        });
+
+        getPhysicsWorld().addCollisionHandler(new CollisionHandler(EntityType.SPIKE, EntityType.PLAYER_BAT) {
+            @Override
+            protected void onCollision(Entity spikeComp, Entity playerBat) {
+                if (spikeComp.getComponent(SpikeComponent.class).getIsUp()) {
+                    //RESTART LEVEL
+                    spikeComp.removeFromWorld();
+                }
+            }
+
+        });
+
+        getPhysicsWorld().addCollisionHandler(new CollisionHandler(EntityType.SPIKE, EntityType.ENEMY_BAT) {
+            @Override
+            protected void onCollision(Entity spikeComp, Entity enemyBat) {
+                if (spikeComp.getComponent(SpikeComponent.class).getIsUp()) {
+                    //RESTART LEVEL
+                    spikeComp.removeFromWorld();
+                }
+            }
+
+        });
+
         getPhysicsWorld().addCollisionHandler(new CollisionHandler(EntityType.BALL, EntityType.WALL) {
             @Override
             protected void onHitBoxTrigger(Entity a, Entity b, HitBox boxA, HitBox boxB) {
@@ -267,6 +327,7 @@ public class PongApp extends GameApplication implements MessageHandler<String> {
 
             server.broadcast(message);
         }
+
     }
 
     private void initScreenBounds() {
@@ -281,11 +342,15 @@ public class PongApp extends GameApplication implements MessageHandler<String> {
     private void initGameObjects() {
         //ball = spawn("ball", getAppWidth() / 2 - 5, getAppHeight() / 2 - 5);
         //ball = spawn("ball", getAppWidth() / 2 - 5, getAppHeight() / 2 - 5);
+        spike = spawn("Spike", 300, getAppHeight() / 2 - 5);
+        button = spawn("Button", 500, getAppHeight() / 2 - 5);
         player1 = spawn("bat", new SpawnData(getAppWidth() / 4, getAppHeight() / 2 - 30).put("isPlayer", true));
         player2 = spawn("bat", new SpawnData(3 * getAppWidth() / 4 - 20, getAppHeight() / 2 - 30).put("isPlayer", false));
 
         player1Bat = player1.getComponent(BatComponent.class);
         player2Bat = player2.getComponent(BatComponent.class);
+        buttonComponent = button.getComponent(ButtonComponent.class);
+        spikeComponent = spike.getComponent(SpikeComponent.class);
     }
 
     private void playHitAnimation(Entity bat) {
